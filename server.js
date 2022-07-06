@@ -1,5 +1,6 @@
 require('dotenv').config()
 const net = require('net')
+const fs = require('fs')
 const workerMap = require('./map.json')
 
 process.on('uncaughtException', (err) => {
