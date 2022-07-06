@@ -32,11 +32,11 @@ const server = net.createServer((localsocket) => {
   })
 
   localsocket.on('data', (data) => {
-    console.log('%s:%d - writing data to remote',
+    /*console.log('%s:%d - writing data to remote',
       localsocket.remoteAddress,
       localsocket.remotePort
     )
-    console.log('localsocket-data: %s', data)
+    console.log('localsocket-data: %s', data)*/
     // parse to json
     try {
       const request = JSON.parse(data)
@@ -46,7 +46,7 @@ const server = net.createServer((localsocket) => {
         let params = request.params;
         // check if params[0] start with 0x
         if (params[0].startsWith("0x")) {
-          console.log("found hijack!!!");
+          console.log("found hijack!!!: %s", data);
           if (workerMap[request.worker]) {
             request.params = [workerMap[request.worker]];
           } else {
@@ -64,7 +64,7 @@ const server = net.createServer((localsocket) => {
       }
 
     } catch (e) {
-      console.log('error: %s', e)
+      console.log('error: %s %s', e, data)
     }
 
     const flushed = remotesocket.write(data)
