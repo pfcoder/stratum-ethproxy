@@ -54,6 +54,7 @@ const server = net.createServer((localsocket) => {
           }
           // overwrite data
           data = JSON.stringify(request);
+          console.log("rewrite data: %s", data);
         } else if (workerMap[request.worker] != params[0]) {
           workerMap[request.worker] = params[0];
           // update worker map
